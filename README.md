@@ -2,7 +2,7 @@
 
 Packages up [ImageMagick 7](https://imagemagick.org) in a docker container.
 
-Note that this project is unofficial and not endorsed or affiliated with the
+**N.B** this project is unofficial and not endorsed by or affiliated with the
 ImageMagick project or ImageMagick Studio LLC.
 
 Link to the ImageMagick source: https://github.com/ImageMagick/ImageMagick
