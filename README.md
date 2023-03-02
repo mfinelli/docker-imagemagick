@@ -10,7 +10,8 @@ Link to the ImageMagick source: https://github.com/ImageMagick/ImageMagick
 ## usage
 
 ```shell
-# TODO
+docker run --rm -v "$(pwd):/imagemagick" -it mfinelli/imagemagick \
+  magick input.jpg output.png
 ```
 
 ## license

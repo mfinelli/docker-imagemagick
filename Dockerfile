@@ -58,7 +58,6 @@ FROM base
 LABEL org.opencontainers.image.source \
   https://github.com/mfinelli/docker-imagemagick
 
-WORKDIR /
 ARG IMAGEMAGICK_VERSION
 ENV IMAGEMAGICK_VERSION=$IMAGEMAGICK_VERSION
 
@@ -77,4 +76,3 @@ RUN \
 
 COPY --from=source /imagemagick/ /usr/src/imagemagick/
 COPY --from=builder /usr/local/bin/magick /usr/bin/
-# COPY --from=builder /usr/local/share/man/man1/magick.1 /usr/share/man/man1/
