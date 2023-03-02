@@ -3,6 +3,8 @@ ARG IMAGEMAGICK_VERSION=7.1.0-62
 FROM debian:bullseye-slim as base
 WORKDIR /imagemagick
 
+RUN apt-get update -y
+
 FROM base as downloader
 
 ARG IMAGEMAGICK_VERSION
@@ -10,7 +12,6 @@ ENV IMAGEMAGICK_VERSION=$IMAGEMAGICK_VERSION
 ENV IMAGEMAGICK_URL=https://github.com/ImageMagick/ImageMagick
 
 RUN \
-  apt-get update -y && \
   apt-get install -y curl && \
   curl -fsSLO ${IMAGEMAGICK_URL}/archive/${IMAGEMAGICK_VERSION}.tar.gz && \
   tar zxvf ${IMAGEMAGICK_VERSION}.tar.gz
@@ -25,11 +26,8 @@ COPY --from=downloader /imagemagick/ImageMagick-${IMAGEMAGICK_VERSION}/ ./
 FROM source as builder
 
 RUN \
-  apt-get update -y && \
-  apt-get install -y build-essential
-
-RUN \
   apt-get install -y \
+    build-essential \
     libdjvulibre-dev \
     libfontconfig-dev \
     libfreetype-dev \
@@ -62,7 +60,6 @@ ARG IMAGEMAGICK_VERSION
 ENV IMAGEMAGICK_VERSION=$IMAGEMAGICK_VERSION
 
 RUN \
-  apt-get update -y && \
   apt-get install -y \
     libjbig0 \
     libtiff5 \
