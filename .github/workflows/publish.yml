@@ -16,9 +16,9 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - run: >-
-          echo "::set-output name=version::$(grep -m1 IMAGEMAGICK_VERSION
-            Dockerfile | awk -F= '{print $2}')"
+      - run: >
+          echo "VERSION=$(grep -m1 IMAGEMAGICK_VERSION Dockerfile |
+            awk -F= '{print $2}')" >> $GITHUB_OUTPUT
         id: version
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
@@ -45,9 +45,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: ${{ startsWith(github.ref, 'refs/tags/') }}
           tags: |
-            mfinelli/imagemagick:${{ steps.version.outputs.version }}
+            mfinelli/imagemagick:${{ steps.version.outputs.VERSION }}
             mfinelli/imagemagick:latest
-            ghcr.io/mfinelli/imagemagick:${{ steps.version.outputs.version }}
+            ghcr.io/mfinelli/imagemagick:${{ steps.version.outputs.VERSION }}
             ghcr.io/mfinelli/imagemagick:latest
       - uses: peter-evans/dockerhub-description@v3
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
