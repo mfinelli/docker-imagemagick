@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
+      packages: write
     steps:
       - uses: actions/checkout@v3
       - run: >
@@ -22,6 +24,7 @@ jobs:
         id: version
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
+      - uses: sigstore/cosign-installer@v3
       - uses: docker/metadata-action@v4
         id: docker
         with:
@@ -41,6 +44,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_TOKEN }}
       - uses: docker/build-push-action@v4
+        id: build
         with:
           platforms: linux/amd64,linux/arm64
           push: ${{ startsWith(github.ref, 'refs/tags/') }}
@@ -49,6 +53,12 @@ jobs:
             mfinelli/imagemagick:latest
             ghcr.io/mfinelli/imagemagick:${{ steps.version.outputs.VERSION }}
             ghcr.io/mfinelli/imagemagick:latest
+      - run: |
+          cosign sign --recursive \
+            mfinelli/imagemagick@${{ steps.build.outputs.digest }}
+          cosign sign --recursive \
+            ghcr.io/mfinelli/imagemagick@${{ steps.build.outputs.digest }}
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
       - uses: peter-evans/dockerhub-description@v3
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
