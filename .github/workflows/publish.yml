@@ -54,9 +54,9 @@ jobs:
             ghcr.io/mfinelli/imagemagick:${{ steps.version.outputs.VERSION }}
             ghcr.io/mfinelli/imagemagick:latest
       - run: |
-          cosign sign --recursive \
+          cosign sign --yes --recursive \
             mfinelli/imagemagick@${{ steps.build.outputs.digest }}
-          cosign sign --recursive \
+          cosign sign --yes --recursive \
             ghcr.io/mfinelli/imagemagick@${{ steps.build.outputs.digest }}
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
       - uses: peter-evans/dockerhub-description@v3
