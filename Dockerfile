@@ -1,4 +1,4 @@
-ARG IMAGEMAGICK_VERSION=7.1.1-6
+ARG IMAGEMAGICK_VERSION=7.1.1-8
 
 FROM debian:bullseye-slim as base
 WORKDIR /imagemagick
