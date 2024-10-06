@@ -1,6 +1,6 @@
 ARG IMAGEMAGICK_VERSION=7.1.1-38
 
-FROM debian:bullseye-slim as base
+FROM debian:bookworm-slim as base
 WORKDIR /imagemagick
 
 RUN apt-get update -y
@@ -62,13 +62,13 @@ ENV IMAGEMAGICK_VERSION=$IMAGEMAGICK_VERSION
 RUN \
   apt-get install -y \
     libjbig0 \
-    libtiff5 \
+    libtiff6 \
     libraqm0 \
     libdjvulibre21 \
     libfontconfig1 \
     libwebpmux3 \
     libwebpdemux2 \
-    libopenexr25 \
+    libopenexr-3-1-30 \
     libgomp1
 
 COPY --from=source /imagemagick/ /usr/src/imagemagick/
