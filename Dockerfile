@@ -1,6 +1,6 @@
 ARG IMAGEMAGICK_VERSION=7.1.2-7
 
-FROM debian:bookworm-slim as base
+FROM debian:trixie-slim as base
 WORKDIR /imagemagick
 
 RUN apt-get update -y
