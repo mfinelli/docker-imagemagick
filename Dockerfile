@@ -1,4 +1,4 @@
-ARG IMAGEMAGICK_VERSION=7.1.2-1
+ARG IMAGEMAGICK_VERSION=7.1.2-7
 
 FROM debian:bookworm-slim as base
 WORKDIR /imagemagick
