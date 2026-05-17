@@ -1,4 +1,4 @@
-ARG IMAGEMAGICK_VERSION=7.1.2-7
+ARG IMAGEMAGICK_VERSION=7.1.2-23
 
 FROM debian:trixie-slim as base
 WORKDIR /imagemagick
